@@ -38,11 +38,21 @@ class Product(BaseModel):
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
 
-# Add your own schemas here:
-# --------------------------------------------------
+# Agri Chatbot Schemas
+class ChatSession(BaseModel):
+    """
+    Chat sessions collection
+    Collection name: "chatsession"
+    """
+    title: str = Field(..., description="Display name for the chat session")
+    language: str = Field(..., description="Language code (e.g., hi, ta, te, bn, mr, kn, ml, pa, gu, en)")
 
-# Note: The Flames database viewer will automatically:
-# 1. Read these schemas from GET /schema endpoint
-# 2. Use them for document validation when creating/editing
-# 3. Handle all database operations (CRUD) directly
-# 4. You don't need to create any database endpoints!
+class ChatMessage(BaseModel):
+    """
+    Chat messages collection
+    Collection name: "chatmessage"
+    """
+    session_id: str = Field(..., description="Associated chat session id")
+    role: str = Field(..., description="user or assistant")
+    content: str = Field(..., description="Message text")
+    language: str = Field(..., description="Language code for the message")
